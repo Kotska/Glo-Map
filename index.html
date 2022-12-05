@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using OpenLayers with Vite</title>
+    <style>
+      body {
+        margin: 0;
+        position: relative;
+      }
+      #map {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+      }
+      #map {
+        background: #000;
+      }
+      .inner {
+        position: relative;
+      }
+      .ol-layer {
+        top: 0;
+        left: 0;
+      }
+      .popup {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+      }
+      .tippy-box[data-theme~='map'] {
+        color: #fff;
+        padding-left: 25px;
+      }
+      .tippy-box[data-theme~='map'] .inner {
+        border: 1px solid red;
+        width: 318px;
+        height: 288px;
+        background: #000;
+      }
+
+      #map-cont {
+
+      }
+
+      #map-cont .ptitle {
+        font-size: 24px;
+      }
+
+    </style>
+  </head>
+  <body id="map-cont">
+    <div id="overlay"></div>
+    <script>
+      const places = [
+        {'points': [17, 48.5], 'name': 'ukraine', 'highlight': 'ukraine', 'subname': 'test',},
+        {'points': [27.3, 31.8], 'name': 'ne-syria', 'highlight': 'ne-syria', 'subname': 'test',},
+        {'points': [31.3, 32], 'name': 'kurdistan-iraq', 'highlight': 'kurdistan-iraq', 'subname': 'test',},
+        {'points': [32, 27.8], 'name': 'ukraine2', 'highlight': 'ukraine2', 'subname': 'test',},
+        {'points': [36.6, 5.7], 'name': 'yemen', 'highlight': 'yemen', 'subname': 'test',},
+        {'points': [-31.3, -3.4], 'name': 'freetown-sierraleone', 'highlight': 'freetown-sierraleone', 'subname': 'test',},
+        {'points': [-107.8, 21], 'name': 'florida', 'highlight': 'florida', 'subname': 'test',},
+        {'points': [-103.9, 17.6], 'name': 'the-bahamas', 'highlight': 'the-bahamas', 'subname': 'test',},
+        {'points': [-126.3, 18], 'name': 'mexico', 'highlight': 'mexico', 'subname': 'test',},
+        // {'points': [-128.7, 18.5], 'name': 'mexico2', 'highlight': 'mexico2', 'subname': 'test',},
+        // {'points': [-122.2, 5.7], 'name': 'mexico3', 'highlight': 'mexico3', 'subname': 'test',},
+        {'points': [-119.8, 4.4], 'name': 'guatamala', 'highlight': 'guatamala', 'subname': 'test',},
+      ]
+    </script>
+      <!-- <div class="overlay"></div> -->
+      <div id="map"></div>
+      <!-- <div id="mouse-position"></div> -->
+      <script type="module" src="./main.js"></script>
+
+      <div class="popup" id="ukraine">
+        <div class="inner">
+          ukraine
+        </div>
+      </div>
+      <div class="popup" id="ne-syria">
+        <div class="inner">
+          ne-syria
+        </div>
+      </div>
+      <div class="popup" id="kurdistan-iraq">
+        <div class="inner">
+          iraq
+        </div>
+      </div>
+      <div class="popup" id="ukraine2">
+        <div class="inner">
+          ukraine2
+        </div>
+      </div>
+      <div class="popup" id="yemen">
+        <div class="inner">
+          yemen
+        </div>
+      </div>
+      <div class="popup" id="freetown-sierraleone">
+        <div class="inner">
+          sierraleone
+        </div>
+      </div>
+      <div class="popup" id="florida">
+        <div class="inner">
+          <div class="ptitle bebasneue">florida</div>
+        </div>
+      </div>
+      <div class="popup" id="the-bahamas">
+        <div class="inner">
+          bahamas
+        </div>
+      </div>
+      <div class="popup" id="mexico">
+        <div class="inner">
+          mexico
+        </div>
+      </div>
+      <div class="popup" id="mexico2">
+        <div class="inner">
+          mexico2
+        </div>
+      </div>
+      <div class="popup" id="mexico3">
+        <div class="inner">
+          mexico3
+        </div>
+      </div>
+      <div class="popup" id="guatamala">
+        <div class="inner">
+          guatamala
+        </div>
+      </div>
+  </body>
+</html>
