@@ -97,7 +97,7 @@ function getOffset(feature){
   let offset = {};
   offset.x = -20;
   offset.y = 30;
-  if(feature.get('name') === 'iraq') {
+  if(feature.get('name') === 'kurdistan-iraq') {
     offset.y = 60;
   }
   return offset;
