@@ -84,7 +84,27 @@ const selectStyle = new Style({
   }),
 });
 
+const invisStyle = new Style({
+  image: new Circle({
+    radius: 16,
+    fill: new Fill({
+      color: [0,0,0,0],
+    })
+  }),
+});
+
+function getOffset(feature){
+  let offset = {};
+  offset.x = -20;
+  offset.y = 30;
+  if(feature.get('name') === 'iraq') {
+    offset.y = 60;
+  }
+  return offset;
+}
+
 function hoverStyleFunction(feature){
+
   const hoverStyle = new Style({
     text: new Text({
       font: '24px Bebas Neue',
@@ -93,8 +113,8 @@ function hoverStyleFunction(feature){
       fill: new Fill({
         color: [255, 255, 255, 1],
       }),
-      offsetX: -20,
-      offsetY: 30,
+      offsetX: getOffset(feature).x,
+      offsetY: getOffset(feature).y,
     }),
   });
   return hoverStyle;
@@ -108,8 +128,8 @@ function hoverStyleFunction2(feature){
       fill: new Fill({
         color: [255, 255, 255, 1],
       }),
-      offsetX: -20,
-      offsetY: 45,
+      offsetX: getOffset(feature).x,
+      offsetY: getOffset(feature).y + 15,
     }),
   });
   return hoverStyle;
@@ -189,6 +209,10 @@ for (let i = 0; i < places.length; i++) {
     highlight: places[i].highlight
   }));
 }
+let features = pointsLayer.getSource().getFeatures();
+features.forEach(function (el) {
+  el.setStyle([pointsStyle, invisStyle]);
+});
 
 let selected = null;
 let shown = false;
@@ -225,9 +249,9 @@ function showTip(e){
 window.showTipSmall = function(name){
     let features = pointsLayer.getSource().getFeatures();
     features.forEach(function(el, index){
-      if(el.get('name') === name){
+      if(el.get('highlight') === name){
         selected = el;
-        el.setStyle([hoverStyleFunction(el), hoverStyleFunction2(el), selectStyle, pointsStyle]);
+        el.setStyle([hoverStyleFunction(el), hoverStyleFunction2(el), selectStyle, pointsStyle, invisStyle]);
         return true;
       }
     })
@@ -235,12 +259,12 @@ window.showTipSmall = function(name){
 
 map.on('pointermove', function (e) {
   if (selected !== null) {
-    selected.setStyle(undefined);
+    selected.setStyle([pointsStyle, invisStyle]);
     selected = null;
   }
   map.forEachFeatureAtPixel(e.pixel, function (f) {
     selected = f;
-    f.setStyle([pointsStyle, selectStyle]);
+    f.setStyle([pointsStyle, selectStyle, invisStyle]);
     return true;
   });
   showTip(e);
@@ -248,25 +272,22 @@ map.on('pointermove', function (e) {
 
 map.on('singleclick', function (e) {
   if (selected !== null) {
-    selected.setStyle(undefined);
+    selected.setStyle([pointsStyle, invisStyle]);
     selected = null;
   }
   map.forEachFeatureAtPixel(e.pixel, function (f) {
     selected = f;
-    f.setStyle([pointsStyle, selectStyle]);
+    f.setStyle([pointsStyle, selectStyle, invisStyle]);
     return true;
   });
   showTip(e);
 });
 
 window.hideSelected = function(){
-  if(selected === null) return;
-  selected.setStyle(undefined);
-  selected = null;
-  var elems = document.querySelectorAll(".highlight");
-  [].forEach.call(elems, function(el) {
-      el.classList.remove("highlight");
-  });
+  let features = pointsLayer.getSource().getFeatures();
+  features.forEach(function (el) {
+		el.setStyle([pointsStyle, invisStyle]);
+	});
   hideAll();
 }
 

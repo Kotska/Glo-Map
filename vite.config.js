@@ -5,5 +5,14 @@ export default defineConfig({
     port: 80,
     host: true
   },
-  format: 'iife'
+  format: 'iife',
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
+  }
 })
