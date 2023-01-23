@@ -257,17 +257,26 @@ window.showTipSmall = function(name){
     })
 }
 
+let tempSelect = selected;
 map.on('pointermove', function (e) {
+  let target = e;
   if (selected !== null) {
     selected.setStyle([pointsStyle, invisStyle]);
     selected = null;
   }
   map.forEachFeatureAtPixel(e.pixel, function (f) {
+    if(tempSelect != null && f != tempSelect){
+      hideAll();
+      showTip(target);
+      selected = f;
+      f.setStyle([pointsStyle, selectStyle, invisStyle]);
+    }
     selected = f;
     f.setStyle([pointsStyle, selectStyle, invisStyle]);
+    tempSelect = selected;
     return true;
   });
-  showTip(e);
+  showTip(target);
 });
 
 map.on('singleclick', function (e) {
